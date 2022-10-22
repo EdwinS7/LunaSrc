@@ -1,0 +1,56 @@
+#pragma once
+
+#include "../misc/CUserCmd.hpp"
+
+#define MULTIPLAYER_BACKUP 150
+
+class bf_write;
+class bf_read;
+
+class CInput
+{
+public:
+    // 00000000 CInput          struc; (sizeof = 0x10C, copyof_144)
+    char                pad_0000[0xC];
+    bool                m_fTrackIRAvailable;
+    bool                m_fMouseInitialized;
+    bool                m_fMouseActive;
+    bool                m_fJoystickAdvancedInit;
+    char                pad_0010[0x2c];
+    char* m_pKeys;
+    char                pad_0040[0x30];
+    int32_t             m_nCamCommand;
+    char                pad_0074[0x4c];
+    bool                m_fCameraInterceptingMouse;
+    bool                m_fCameraInThirdPerson;
+    bool                m_fCameraMovingWithMouse;
+    char                pad_00C3[0x1];
+    Vector              m_vecCameraOffset;
+    bool                m_fCameraDistanceMove;
+    char                pad_00D1[0x13];
+    bool                m_CameraIsOrthographic;
+    bool                m_CameraIsThirdPersonOverview;
+    char                pad_00E6[0x2];
+    Vector* m_angPreviousViewAngles;
+    Vector* m_angPreviousViewAnglesTilt;
+    char                pad_00F0[0x10];
+    float               m_flLastForwardMove;
+    int32_t             m_nClearInputState;
+    CUserCmd* m_pCommands; // 00000108
+    CVerifiedUserCmd* m_pVerifiedCommands; // 0000010C
+
+    CUserCmd* CInput::GetUserCmd(int sequence_number)
+    {
+        return &m_pCommands[sequence_number % MULTIPLAYER_BACKUP];
+    }
+
+    CUserCmd* CInput::GGetUserCmd(int slot, int sequence_number)
+    {
+        return &m_pCommands[slot, sequence_number % MULTIPLAYER_BACKUP];
+    }
+
+    CVerifiedUserCmd* GetVerifiedUserCmd(int sequence_number)
+    {
+        return &m_pVerifiedCommands[sequence_number % MULTIPLAYER_BACKUP];
+    }
+};

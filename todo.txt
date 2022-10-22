@@ -1,0 +1,8 @@
+**LUNA V3**
+Recode the local animations, refer to this post for help: https://yougame.biz/threads/264674/post-2701656
+
+Complete the legitbot
+--Reason, I think I should complete it just incase I ever wanna legit cheat with it. Although, It does need new stuff for hooking, It is detecting I think as of right now.
+
+Recode the Lua API
+--Reason, It is legendwares shit original api with some things added, its terrible. Worse than fatality's old api.
